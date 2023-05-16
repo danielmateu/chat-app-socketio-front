@@ -1,14 +1,27 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 
 
 const LoginPage = () => {
 
     const [form, setForm] = useState({
-        email: '',
-        password: '',
+        email: 'test@gmail.com',
+        password: '123456',
         rememberme: false
     })
+
+    useEffect(() => {
+        const email = localStorage.getItem('email')
+
+        if (email) {
+            setForm({
+                ...form,
+                email,
+                rememberme: true
+            })
+        }
+    }, [])
+
 
     const onChange = ({ target }) => {
         const { name, value } = target
@@ -27,7 +40,10 @@ const LoginPage = () => {
 
     const onSubmit = (ev) => {
         ev.preventDefault()
-        console.log(form)
+
+        form.rememberme ? localStorage.setItem('email', form.email) : localStorage.removeItem('email')
+
+        // TODO: Llamar al backend
     }
 
     return (
@@ -58,7 +74,7 @@ const LoginPage = () => {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    checked={form.password}
+                    value={form.password}
                     onChange={onChange}
                 // readOnly
                 />
