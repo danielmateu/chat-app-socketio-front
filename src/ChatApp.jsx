@@ -1,4 +1,5 @@
 import { AuthProvider } from "./context/auth/AuthContext"
+import { SocketProvider } from "./context/sockets/SocketContext"
 import AppRouter from "./router/AppRouter"
 
 
@@ -7,7 +8,9 @@ function ChatApp() {
 
   return (
     <AuthProvider>
-      <AppRouter />
+      <SocketProvider>
+        <AppRouter />
+      </SocketProvider>
     </AuthProvider>
   )
 }
