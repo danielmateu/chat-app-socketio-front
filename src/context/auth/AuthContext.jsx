@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
     }
 
-    const register = async(nombre, email, password) => {
+    const register = async (nombre, email, password) => {
 
         const resp = await fetchConToken('login/new', { nombre, email, password }, 'POST')
         // console.log(resp);
@@ -60,7 +60,53 @@ export const AuthProvider = ({ children }) => {
         return resp.msg
     }
 
-    const verifyToken = useCallback(() => { }, [])
+    const verifyToken = useCallback(async () => {
+
+        // Leer el token del localstorage
+        const token = localStorage.getItem('token')
+
+        // if (!token) {}
+        if (!token) {
+
+            setAuth({
+                uid: null,
+                checking: false,
+                logged: false,
+                name: null,
+                email: null
+            })
+            return false
+        }
+
+
+        const resp = await fetchConToken('login/renew')
+        // console.log(resp);
+
+        if (resp.ok) {
+            localStorage.setItem('token', resp.token)
+            const { usuario } = resp
+            setAuth({
+                uid: usuario.uid,
+                checking: false,
+                logged: true,
+                name: usuario.name,
+                email: usuario.email
+            })
+            console.log('Autenticado!');
+            return true
+        } else {
+            setAuth({
+                uid: null,
+                checking: false,
+                logged: false,
+                name: null,
+                email: null
+            })
+            return false
+        }
+
+
+    }, [])
 
     const logout = () => { }
 
