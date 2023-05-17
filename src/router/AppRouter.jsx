@@ -1,13 +1,13 @@
 import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom"
-import ChatPage from "../pages/ChatPage"
-
-import { AuthRouter } from "./AuthRouter"
 import { useContext, useEffect } from "react"
 import { AuthContext } from "../context/auth/AuthContext"
+import { PublicRoute } from "./PublicRoute"
+import { PrivateRoute } from "./PRivateRoute"
 
 const AppRouter = () => {
 
     const { auth, verifyToken } = useContext(AuthContext)
+    // console.log(auth);
 
     useEffect(() => {
         verifyToken()
@@ -18,9 +18,15 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/auth/*" element={<AuthRouter />} />
-                <Route path="/chat" element={<ChatPage />} />
-                <Route path="/*" element={<Navigate to="/chat" />} />
+                <Route
+                    path="/auth/*"
+                    element={<PublicRoute isAuthenticated={auth.logged} />}
+                />
+                <Route
+                    path="/"
+                    element={<PrivateRoute isAuthenticated={auth.logged} />}
+                />
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </BrowserRouter>
 
