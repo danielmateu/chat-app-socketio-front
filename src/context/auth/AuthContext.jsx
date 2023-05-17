@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
                 uid: usuario.uid,
                 checking: false,
                 logged: true,
-                nombre: usuario.nombre,
+                name: usuario.nombre,
                 email: usuario.email
             })
         }
@@ -108,7 +108,17 @@ export const AuthProvider = ({ children }) => {
 
     }, [])
 
-    const logout = () => { }
+    const logout = () => {
+
+        localStorage.removeItem('token')
+
+        setAuth({
+            checking: false,
+            logged: false
+        })
+
+        
+    }
 
 
 

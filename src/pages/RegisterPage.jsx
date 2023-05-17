@@ -8,9 +8,9 @@ const RegisterPage = () => {
     const { register } = useContext(AuthContext)
 
     const [form, setForm] = useState({
-        nombre: 'Dani',
-        email: 'test@gmail.com',
-        password: '123456',
+        nombre: '',
+        email: '',
+        password: '',
 
     })
 
@@ -29,6 +29,17 @@ const RegisterPage = () => {
         const { nombre: nombre, email, password } = form
         const msg = await register(nombre, email, password)
         msg === undefined ? Swal.fire('Bienvenido!', 'Registro exitoso', 'success') : Swal.fire('Error', msg, 'error')
+
+        // A los 3 segundos redireccionar a la pagina de login y limpiar el formulario
+        setTimeout(() => {
+            setForm({
+                nombre: '',
+                email: '',
+                password: '',
+            })
+            // Redireccionar a la pagina de login
+            window.location.href = '/auth/login'
+        }, 2000)
 
     }
 

@@ -6,7 +6,7 @@ export const IncommingMessage = () => {
             {/* <!-- Mensaje recibido Inicio --> */}
             <div className="incoming_msg">
                 <div className="incoming_msg_img">
-                    <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" />
+                <img src="../public/useravatar.png" alt="sunil"/>
                 </div>
                 <div className="received_msg">
                     <div className="received_withd_msg">
