@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 import { AuthContext } from "../context/auth/AuthContext"
-
+import Swal from "sweetalert2"
 
 
 const LoginPage = () => {
@@ -18,12 +18,13 @@ const LoginPage = () => {
         const email = localStorage.getItem('email')
 
         if (email) {
-            setForm({
+            setForm((form) => ({
                 ...form,
                 email,
                 rememberme: true
-            })
+            }))
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -42,7 +43,7 @@ const LoginPage = () => {
         })
     }
 
-    const onSubmit = (ev) => {
+    const onSubmit = async (ev) => {
         ev.preventDefault()
 
         form.rememberme ? localStorage.setItem('email', form.email) : localStorage.removeItem('email')
@@ -50,7 +51,11 @@ const LoginPage = () => {
         const { email, password } = form
 
         // TODO: Llamar al backend
-        login(email, password)
+        const ok = await login(email, password)
+        // console.log(ok);
+        if (!ok) {
+            Swal.fire('Error', 'Verifique el usuario y contraseña', 'error')
+        }
 
     }
 
