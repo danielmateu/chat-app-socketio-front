@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
+import { AuthContext } from "../context/auth/AuthContext"
+
 
 
 const LoginPage = () => {
+
+    const { login } = useContext(AuthContext)
 
     const [form, setForm] = useState({
         email: 'test@gmail.com',
@@ -43,7 +47,11 @@ const LoginPage = () => {
 
         form.rememberme ? localStorage.setItem('email', form.email) : localStorage.removeItem('email')
 
+        const { email, password } = form
+
         // TODO: Llamar al backend
+        login(email, password)
+
     }
 
     return (
