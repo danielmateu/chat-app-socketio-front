@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useCallback } from "react";
 import { createContext, useState } from "react";
-import { fetchSinToken } from "../../helpers/fetch";
-
+import { fetchConToken, fetchSinToken } from "../../helpers/fetch";
+// import Swal from "sweetalert2";
 export const AuthContext = createContext();
 
 const initialState = {
@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         const resp = await fetchSinToken('login', { email, password }, 'POST')
-
         // console.log(resp);
 
         if (resp.ok) {
@@ -29,7 +28,7 @@ export const AuthProvider = ({ children }) => {
                 uid: usuario.uid,
                 checking: false,
                 logged: true,
-                name: usuario.nombre,
+                nombre: usuario.nombre,
                 email: usuario.email
             })
         }
@@ -40,7 +39,26 @@ export const AuthProvider = ({ children }) => {
 
     }
 
-    const register = (name, email, password) => { }
+    const register = async(nombre, email, password) => {
+
+        const resp = await fetchConToken('login/new', { nombre, email, password }, 'POST')
+        // console.log(resp);
+
+        if (resp.ok) {
+            localStorage.setItem('token', resp.token)
+            const { usuario } = resp
+            setAuth({
+                uid: usuario.uid,
+                checking: false,
+                logged: true,
+                name: usuario.name,
+                email: usuario.email
+            })
+            console.log('Registrado!');
+            return true
+        }
+        return resp.msg
+    }
 
     const verifyToken = useCallback(() => { }, [])
 

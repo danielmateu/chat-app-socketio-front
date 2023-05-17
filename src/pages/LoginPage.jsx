@@ -9,8 +9,8 @@ const LoginPage = () => {
     const { login } = useContext(AuthContext)
 
     const [form, setForm] = useState({
-        email: 'test@gmail.com',
-        password: '123456',
+        email: '',
+        password: '',
         rememberme: false
     })
 
@@ -98,7 +98,18 @@ const LoginPage = () => {
                 <span className="focus-input100"></span>
             </div>
 
-            <div className="row mb-3">
+
+
+            <div className="container-login100-form-btn m-t-17">
+                <button
+                    disabled={!todoOk()}
+                    type="submit"
+                    className="login100-form-btn">
+                    Ingresar
+                </button>
+            </div>
+
+            <div className="row mt-3 d-flex align-items-center">
                 <div
                     onClick={() => toggleCheck()}
                     className="col"
@@ -116,23 +127,12 @@ const LoginPage = () => {
                     </label>
                 </div>
 
-                <div className="col text-right">
+                <div className="col text-end">
                     <NavLink to="/auth/register" className="txt1">
                         Nueva cuenta?
                     </NavLink>
-                    {/* <a href="register.html" className="txt1">
-                        Nueva cuenta?
-                    </a> */}
-                </div>
-            </div>
 
-            <div className="container-login100-form-btn m-t-17">
-                <button 
-                    disabled={!todoOk()}
-                    type="submit"
-                    className="login100-form-btn">
-                    Ingresar
-                </button>
+                </div>
             </div>
 
         </form>
