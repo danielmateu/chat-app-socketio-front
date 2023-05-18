@@ -17,14 +17,14 @@ export const SocketProvider = ({ children }) => {
     useEffect(() => {
         if (auth.logged) {
             conectarSocket()
-            console.log('Conectar socket');
+            // console.log('Conectar socket');
         }
     }, [auth, conectarSocket])
 
     useEffect(() => {
         if (!auth.logged) {
             desconectarSocket()
-            console.log('Desconectar socket');
+            // console.log('Desconectar socket');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [auth])

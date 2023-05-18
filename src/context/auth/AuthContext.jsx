@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
             })
         }
 
-        console.log('Autenticado!');
+        // console.log('Autenticado!');
 
         return resp.ok
 

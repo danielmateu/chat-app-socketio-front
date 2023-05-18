@@ -102,6 +102,7 @@ const LoginPage = () => {
 
             <div className="container-login100-form-btn m-t-17">
                 <button
+                    onClick={onSubmit}
                     disabled={!todoOk()}
                     type="submit"
                     className="login100-form-btn">

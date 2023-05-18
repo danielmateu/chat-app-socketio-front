@@ -50,28 +50,3 @@ export const fetchConToken = async (endpoint, data, method = 'GET') => {
     }
 }
 
-// Peticion para crear un nuevo usuario
-// export const fetchConTokenSinBody = async (endpoint, method = 'GET') => {
-    
-//         const url = `${baseUrl}/${endpoint}`;
-//         const token = localStorage.getItem('token') || '';
-    
-//         if (method === 'GET') {
-//             // return fetch(url);
-//             const resp = await fetch(url, {
-//                 method,
-//                 headers: {
-//                     'x-token': token
-//                 }
-//             });
-//             return await resp.json();
-//         } else {
-//             const resp = await fetch(url, {
-//                 method,
-//                 headers: {
-//                     'x-token': token
-//                 }
-//             });
-//             return await resp.json();
-//         }
-// }
