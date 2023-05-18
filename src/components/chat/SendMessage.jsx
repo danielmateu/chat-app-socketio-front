@@ -19,7 +19,7 @@ export const SendMessage = () => {
     const onSubmit = (ev) => {
         ev.preventDefault()
         if (mensaje.length === 0) return
-        console.log(mensaje)
+        // console.log(mensaje)
         setMensaje('')
 
         // TODO: Emitir un evento de sockets para enviar el mensaje
@@ -36,8 +36,6 @@ export const SendMessage = () => {
         })
 
         // TODO: Hacer el dispatch del mensaje...
-
-
     }
 
     return (
