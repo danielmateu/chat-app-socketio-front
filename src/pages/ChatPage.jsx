@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import { ChatSelect } from '../components/chat/ChatSelect'
 import { InboxPeople } from '../components/chat/InboxPeople'
 import { Messages } from '../components/chat/Messages'
 import '../css/chat.css'
+import { ChatContext } from '../context/chat/ChatContext'
 
 const ChatPage = () => {
 
-    const [chatActivo] = useState(true)
+    const { chatState } = useContext(ChatContext)
+    const { chatActivo } = chatState
 
     return (
         <div className="messaging">

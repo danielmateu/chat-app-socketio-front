@@ -20,7 +20,6 @@ export const ChatProvider = ({ children }) => {
         <ChatContext.Provider value={{
             chatState,
             dispatch,
-
         }}>
             {children}
         </ChatContext.Provider>

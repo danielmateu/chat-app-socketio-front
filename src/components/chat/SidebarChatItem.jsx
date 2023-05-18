@@ -1,19 +1,41 @@
+import { useContext } from "react"
+import { ChatContext } from "../../context/chat/ChatContext"
+import { types } from "../../types/types"
+
 /* eslint-disable react/prop-types */
-export const SidebarChatItem = ({  name, online, }) => {
+export const SidebarChatItem = ({ usuario }) => {
+
+    // console.log(usuario);
+    const { chatState, dispatch } = useContext(ChatContext)
+    const { chatActivo } = chatState
+
+    const onClick = () => {
+        // console.log(usuario.uid);
+        // console.log(chatActivo);
+        dispatch({
+            type: types.activarChat,
+            payload: usuario.uid,
+            
+        })
+    }
 
     return (
         <>
             {/* <!-- conversación activa inicio --> */}
-            <div className="chat_list ">
+            <div
+                className={`chat_list ${usuario.uid === chatActivo && 'active_chat'}}`}
+                // className="chat_list active_chat"
+                onClick={onClick}
+            >
                 {/* active_chat */}
                 <div className="chat_people">
                     <div className="chat_img">
                         <img src="../useravatar.png" alt="sunil" />
                     </div>
                     <div className="chat_ib">
-                        <h5>{name}</h5>
+                        <h5>{usuario.nombre}</h5>
                         {
-                            online
+                            usuario.online
                                 ? <span className="text-success">Online</span>
                                 : <span className="text-danger">Offline</span>
                         }

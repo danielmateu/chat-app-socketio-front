@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }) => {
                 name: usuario.name,
                 email: usuario.email
             })
-            console.log('Autenticado!');
+            // console.log('Autenticado!');
             return true
         } else {
             setAuth({

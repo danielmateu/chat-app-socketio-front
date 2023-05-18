@@ -21,8 +21,10 @@ export const Sidebar = () => {
                     .map(usuario => (
                         <SidebarChatItem
                             key={usuario.uid}
-                            name={usuario.nombre}
-                            online={usuario.online}
+                            usuario={usuario}
+                            // name={usuario.nombre}
+                            // online={usuario.online}
+                            // uid={usuario.uid}
                         />))
                 }
                 {/* <!-- Espacio extra para scroll --> */}
