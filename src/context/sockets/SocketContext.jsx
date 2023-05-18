@@ -29,6 +29,13 @@ export const SocketProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [auth])
 
+    // Escuchar los cambios en los usuarios conectados
+    useEffect(() => {
+        socket?.on('lista-usuarios', (usuarios) => {
+            console.log(usuarios);
+        })
+    }, [socket])
+
 
 
     return (
