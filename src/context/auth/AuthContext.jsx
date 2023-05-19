@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 import { createContext, useState } from "react";
 import { fetchConToken, fetchSinToken } from "../../helpers/fetch";
+// import { chatReducer } from "../chat/chatReducer";
+import { ChatContext } from "../chat/ChatContext";
+
 // import Swal from "sweetalert2";
 export const AuthContext = createContext();
 
@@ -16,6 +19,8 @@ const initialState = {
 export const AuthProvider = ({ children }) => {
 
     const [auth, setAuth] = useState(initialState)
+    const {dispatch} = useContext(ChatContext)
+    // const {cerrarSesion} = useReducer(chatReducer, initialState)
 
     const login = async (email, password) => {
         const resp = await fetchSinToken('login', { email, password }, 'POST')
@@ -112,10 +117,16 @@ export const AuthProvider = ({ children }) => {
 
         localStorage.removeItem('token')
 
+        dispatch({
+            type: 'cerrarSesion'
+        })
+
         setAuth({
             checking: false,
             logged: false
         })
+
+        // cerrarSesion()
 
         
     }
