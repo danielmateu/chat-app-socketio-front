@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { ChatContext } from "../../context/chat/ChatContext"
 import { types } from "../../types/types"
+import { fetchConToken } from "../../helpers/fetch"
 
 /* eslint-disable react/prop-types */
 export const SidebarChatItem = ({ usuario }) => {
@@ -9,14 +10,23 @@ export const SidebarChatItem = ({ usuario }) => {
     const { chatState, dispatch } = useContext(ChatContext)
     const { chatActivo } = chatState
 
-    const onClick = () => {
+    const onClick = async () => {
         // console.log(usuario.uid);
         // console.log(chatActivo);
         dispatch({
             type: types.activarChat,
             payload: usuario.uid,
-            
+
         })
+
+        //  Cargar los mensajes del chat
+        const resp = await fetchConToken(`mensajes/${usuario.uid}`)
+        // console.log(resp.mensajes);
+        dispatch({
+            type: types.cargarMensajes,
+            payload: resp.mensajes.reverse()
+        })
+
     }
 
     return (

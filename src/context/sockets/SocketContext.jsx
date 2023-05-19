@@ -5,6 +5,8 @@ import { useSocket } from '../../hooks/useSocket';
 import { AuthContext } from '../auth/AuthContext';
 import { ChatContext } from '../chat/ChatContext';
 import { types } from '../../types/types';
+// import { scrollToBottomAnimated } from '../../helpers/scrollToBottom';
+import { animateScroll } from 'react-scroll';
 
 
 export const SocketContext = createContext();
@@ -45,13 +47,19 @@ export const SocketProvider = ({ children }) => {
 
     useEffect(() => {
         socket?.on('mensaje-personal', (mensaje) => {
-            console.log(mensaje);
+            // console.log(mensaje);
             dispatch({
                 type: types.nuevoMensaje,
                 payload: mensaje
             })
-
+            setTimeout(() => {
+                animateScroll.scrollToBottom({
+                    containerId: 'mensajes',
+                    // duration: 0
+                })
+            }, 50);
             // TODO: Mover el scroll al final
+            // scrollToBottomAnimated('mensajes')
 
         })
     }, [socket, dispatch])
